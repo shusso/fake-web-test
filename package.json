@@ -1,0 +1,19 @@
+{
+  "name": "fake-web",
+  "version": "0.0.1",
+  "description": "Fake web server using mountebank",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Samuel Husso",
+  "license": "MIT",
+
+  "engines": {
+    "node": "5.6.0"
+  },
+
+  "dependencies" : {
+    "mountebank" : "^1.5.0-beta"
+    }
+}
