@@ -7,12 +7,60 @@ module.exports = function(grunt) {
             },
             start: ['--port', 2525, '--allowInjection', '--mock', '--debug', '--pidfile', 'mb-grunt.pid'],
             restart: ['--port', 2525, '--allowInjection', '--mock', '--debug', '--pidfile', 'mb-grunt.pid'],
-            stop: ['--pidfile', 'mb-grunt.pid']
-        },
-    });
+            stop: ['--pidfile', 'mb-grunt.pid'],
 
+
+        },
+        http: {
+            imposter_data : {
+                options: {
+                    url: 'http://127.0.0.1:2525/imposters',
+                    method: 'POST',
+                    body: {
+                        "port": 4545,
+                        "protocol": "http",
+                        "stubs": [{
+                            "responses": [
+                                {"is": {"statusCode": 400}}
+                            ],
+                            "predicates": [{
+                                "and": [
+                                    {
+                                        "equals": {
+                                            "path": "/test",
+                                            "method": "POST",
+                                            "headers": {
+                                                "Content-Type": "application/json"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "not": {
+                                            "contains": {
+                                                "body": "requiredField"
+                                            },
+                                            "caseSensitive": true
+                                        }
+                                    }
+                                ]
+                            }]
+                        }]
+                    }
+                }
+            },
+            imposter_data_delete : {
+                options: {
+                    url: 'http://127.0.0.1:2525/imposters/4545',
+                    method: 'DELETE',
+                }
+            }
+        }//http
+    });
+    //MounteBank
     grunt.loadNpmTasks('grunt-mountebank');
     grunt.registerTask('mb-start', ['mb:start']);
     grunt.registerTask('mb-stop', ['mb:stop']);
     grunt.registerTask('mb-restart', ['mb:restart']);
+    //Set some data to MounteBank
+    grunt.loadNpmTasks('grunt-http');
 };
