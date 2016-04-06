@@ -16,12 +16,13 @@ module.exports = function(grunt) {
                 options: {
                     url: 'http://127.0.0.1:2525/imposters',
                     method: 'POST',
-                    body: {
+                    json: true,
+                    body : {
                         "port": 4545,
                         "protocol": "http",
                         "stubs": [{
                             "responses": [
-                                {"is": {"statusCode": 400}}
+                                { "is": { "statusCode": 400 }}
                             ],
                             "predicates": [{
                                 "and": [
@@ -48,12 +49,12 @@ module.exports = function(grunt) {
                     }
                 }
             },
-            imposter_data_delete : {
+            imposter_data_del : {
                 options: {
                     url: 'http://127.0.0.1:2525/imposters/4545',
                     method: 'DELETE',
-                }
-            }
+                },
+            },
         }//http
     });
     //MounteBank
@@ -63,4 +64,6 @@ module.exports = function(grunt) {
     grunt.registerTask('mb-restart', ['mb:restart']);
     //Set some data to MounteBank
     grunt.loadNpmTasks('grunt-http');
+    grunt.registerTask('add-data', ['http:imposter_data']);
+    grunt.registerTask('remove-data', ['http:imposter_data_del']);
 };
