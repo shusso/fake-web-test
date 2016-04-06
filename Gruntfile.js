@@ -12,5 +12,7 @@ module.exports = function(grunt) {
     });
 
     grunt.loadNpmTasks('grunt-mountebank');
-    grunt.registerTask('test', ['mb:start', 'try', 'mochaTest', 'finally', 'mb:stop', 'checkForErrors']);
+    grunt.registerTask('mb-start', ['mb:start']);
+    grunt.registerTask('mb-stop', ['mb:stop']);
+    grunt.registerTask('mb-restart', ['mb:restart']);
 };
