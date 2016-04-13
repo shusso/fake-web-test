@@ -68,12 +68,12 @@ module.exports = function(grunt) {
                         "stubs": [{
                             "responses": [{
                                 "is": {
-                                    "data": "hello world is up, man\n\n"
+                                    "data": "{id: 123, \"name\"\: \"myAwesumeProject\" }\n"
                                 }
                             }],
                             "predicates": [{
                                 "contains": {
-                                    "data": "whats up doc"
+                                    "data": "hello"
                                 }
                             }],
                         }]
